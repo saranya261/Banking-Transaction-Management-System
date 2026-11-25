@@ -1,166 +1,201 @@
+<div align="center">
+
 # 🏦 SECURE BANK
-### Banking Transaction Management System
 
-**Smarter Banking. Simpler Transactions. Secure Experience.**
+### *Every rupee accounted for. Every transaction safe.*
 
-Secure Bank is a Java-based Banking Transaction Management System that brings essential banking operations into one integrated application. It combines Java backend processing, MySQL database management, and an interactive web interface to provide customers and administrators with a centralized banking experience.
+A Java-powered banking transaction system with a **web dashboard**, a **Swing desktop app**, and a **MySQL** core, all running on one backend.
 
-The project supports both a Java Swing desktop application and a browser-based interface.
+<br>
 
----
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Status](https://img.shields.io/badge/Type-Academic_Project-success?style=for-the-badge)
 
-## ✨ About the Project
+<br>
 
-Secure Bank aims to simplify everyday banking operations through a system that connects customer account management, financial transactions, and administrative activities.
+[Features](#-what-it-does) • [Architecture](#-how-its-built) • [Quick Start](#-quick-start) • [Concepts](#-what-this-project-teaches) • [Team](#-the-team) • [Roadmap](#-roadmap)
 
-With separate customer and administrator modules, the application provides an organized way to manage accounts, process transactions, and maintain banking records.
-
----
-
-## 🚀 Key Features
-
-### 👤 Customer Banking
-- Customer authentication and login
-- Check account balance
-- Deposit money
-- Withdraw money
-- Transfer funds between accounts
-- View transaction history
-
-### 🛡️ Admin Management
-- Administrator authentication
-- View customer accounts
-- Monitor banking transactions
-- Add customer accounts
-- Delete customer accounts
-- View total bank balance
-
-### 💳 Transaction Management
-- Deposit and withdrawal processing
-- Fund transfer operations
-- Balance validation
-- Transaction history maintenance
-- Database transaction handling with commit and rollback
-
-### 💻 Multiple Interfaces
-- Interactive web-based banking interface
-- Java Swing desktop application
-- Java HTTP server for web application communication
+</div>
 
 ---
 
-## 🧰 Technology Stack
+## 💡 The Idea
 
-| Technology | Purpose |
-|---|---|
-| Java | Backend logic |
-| Java Swing | Desktop interface |
-| JDBC | Database connectivity |
-| MySQL | Database management |
-| Java HTTP Server | Web server and API |
-| HTML5 | Frontend structure |
-| CSS3 | Frontend styling |
-| JavaScript | Frontend interactions |
+Most student banking projects stop at a console menu. **Secure Bank** goes further: it puts customers and administrators on separate, purpose-built modules, connects them to a real relational database, and lets you use the same system from either a **browser** or a **desktop window**.
+
+One backend. Two front doors. Zero guesswork about where your money went.
 
 ---
 
-## 🏗️ System Architecture
+## 🎯 What It Does
 
-```text
-                 SECURE BANK
-                      |
-            +---------+---------+
-            |                   |
-       Web Interface        Swing GUI
-            |                   |
-       HTML/CSS/JS           Java Swing
-            |                   |
-            +---------+---------+
-                      |
-                 Java Backend
-                      |
-                 JDBC / DAO
-                      |
-                    MySQL
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### 👤 Customer
+Everyday banking, made simple.
+
+- 🔐 Secure login
+- 💰 Check balance
+- ➕ Deposit
+- ➖ Withdraw
+- 🔁 Transfer funds
+- 📜 Transaction history
+
+</td>
+<td width="33%" valign="top">
+
+### 🛡️ Admin
+Full visibility over the bank.
+
+- 🔐 Admin login
+- 👥 View all customers
+- 🔎 Monitor transactions
+- 🆕 Add accounts
+- 🗑️ Delete accounts
+- 🏛️ Total bank balance
+
+</td>
+<td width="33%" valign="top">
+
+### ⚙️ Engine
+What keeps it trustworthy.
+
+- ✅ Balance validation
+- 🧾 History logging
+- 🔒 Atomic transactions
+- ↩️ Commit & rollback
+- 🛑 Prepared statements
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🧩 How It's Built
+
+Two interfaces, one shared brain:
+
+```mermaid
+flowchart TD
+    A[🌐 Web Interface<br/>HTML · CSS · JS] -->|HTTP requests| C
+    B[🖥️ Swing Desktop App<br/>Java Swing] -->|Direct calls| D
+    C[Java HTTP Server] --> D[Java Backend<br/>Business Logic]
+    D --> E[JDBC / DAO Layer]
+    E --> F[(MySQL Database)]
 ```
 
+### 🔄 How a Transfer Stays Safe
+
+```mermaid
+flowchart LR
+    S([Start Transfer]) --> V{Enough balance?}
+    V -- No --> X[Reject request]
+    V -- Yes --> T[Begin transaction]
+    T --> D1[Debit sender]
+    D1 --> D2[Credit receiver]
+    D2 --> L[Log in history]
+    L --> OK{All steps succeeded?}
+    OK -- Yes --> CM([✅ Commit])
+    OK -- No --> RB([↩️ Rollback])
+```
+
+If anything fails halfway, the database rolls back, so money is never debited without being credited.
+
 ---
 
-## 📂 Project Structure
+## 🧰 Tech Stack
+
+| Layer | Technology | Role |
+|:--|:--|:--|
+| 🧠 Backend | **Java** | Core logic and processing |
+| 🖥️ Desktop UI | **Java Swing** | Native desktop client |
+| 🌐 Web Server | **Java HTTP Server** | Serves the site and handles API calls |
+| 🔌 Connectivity | **JDBC** | Java ↔ database bridge |
+| 🗄️ Database | **MySQL** | Accounts, balances, transaction records |
+| 🎨 Frontend | **HTML5 · CSS3 · JavaScript** | Interactive browser experience |
+
+---
+
+## 📂 Project Layout
 
 ```text
 Secure_Bank/
-│
-├── src/
-│   ├── Java Source Files
+├── src/                    ← Java source
 │   ├── Account Management
 │   ├── Transaction Management
 │   ├── Database Connectivity
 │   └── Dashboard Modules
 │
-├── web/
+├── web/                    ← Browser interface
 │   ├── index.html
 │   ├── style.css
 │   ├── app.js
 │   └── fx.js
 │
-├── lib/
-│
-├── run.bat
-├── run.sh
-├── WEB_UI_README.md
-├── .gitignore
+├── lib/                    ← MySQL Connector/J goes here
+├── run.bat                 ← One-click launch (Windows)
+├── run.sh                  ← One-click launch (Linux / macOS)
+├── WEB_UI_README.md        ← Web UI notes
 └── README.md
 ```
 
 ---
 
-## ⚡ Getting Started
+## ⚡ Quick Start
 
-### Prerequisites
-- Java JDK
-- MySQL Server
-- MySQL Connector/J
+### 📋 You'll need
 
-### 1. Clone the Repository
+- ☕ Java JDK
+- 🐬 MySQL Server
+- 🔌 MySQL Connector/J
+
+### 🛠️ Setup
+
+**1. Clone and enter the project**
 
 ```bash
 git clone YOUR_REPOSITORY_URL
-```
-
-### 2. Navigate to the Project
-
-```bash
 cd Secure_Bank
 ```
 
-### 3. Configure the Database
+**2. Prepare the database**
 
-- Start MySQL Server.
-- Create the required banking database.
-- Set up the required tables.
-- Configure database credentials using environment variables.
+- Start MySQL Server
+- Create the banking database
+- Create the required tables
+- Set your database credentials as **environment variables** (never hard-code them)
 
-### 4. Configure Dependencies
+**3. Add the driver**
 
-Place the MySQL JDBC Connector inside the `lib` directory.
+Drop the MySQL JDBC Connector `.jar` into the `lib/` folder.
 
-### 5. Run the Application
+**4. Launch**
 
-**Windows:**
+<details open>
+<summary><b>🪟 Windows</b></summary>
 
 ```bash
 run.bat
 ```
+</details>
 
-**Linux / macOS:**
+<details>
+<summary><b>🐧 Linux / 🍎 macOS</b></summary>
 
 ```bash
 chmod +x run.sh
 ./run.sh
 ```
+</details>
 
-### 6. Access the Web Interface
+**5. Open the app**
 
 ```text
 http://localhost:8080
@@ -168,46 +203,48 @@ http://localhost:8080
 
 ---
 
-## 🧠 Concepts Demonstrated
+## 🎓 What This Project Teaches
 
-- Object-Oriented Programming
-- Java Classes and Objects
-- Encapsulation
-- Exception Handling
-- JDBC Connectivity
-- SQL Database Operations
-- Prepared Statements
-- Database Transactions
-- Frontend and Backend Integration
-- HTTP Communication
+| Area | Concepts |
+|:--|:--|
+| 🧱 **Java Fundamentals** | OOP, classes and objects, encapsulation, exception handling |
+| 🗄️ **Databases** | JDBC, SQL operations, prepared statements, commit and rollback |
+| 🌐 **Integration** | Frontend ↔ backend communication, HTTP |
 
 ---
 
-## 👥 Team Members
+## 👥 The Team
 
 | Role | Contributor |
-|---|---|
-| Project Developer | Your Name |
-| Team Member 2 | Friend 1 |
-| Team Member 3 | Friend 2 |
+|:--|:--|
+| 🧑‍💻 Project Developer | Your Name |
+| 🤝 Team Member | Friend 1 |
+| 🤝 Team Member | Friend 2 |
 
 ---
 
-## 🔮 Future Enhancements
+## 🔮 Roadmap
 
-- Enhanced authentication and password security
-- Detailed financial analytics
-- Account profile management
-- Transaction notifications
-- Advanced transaction reports
-- Cloud deployment
+- [ ] 🔐 Stronger authentication and password security
+- [ ] 📊 Detailed financial analytics
+- [ ] 👤 Account profile management
+- [ ] 🔔 Transaction notifications
+- [ ] 🧾 Advanced transaction reports
+- [ ] ☁️ Cloud deployment
 
 ---
 
 ## ⚠️ Disclaimer
 
-Secure Bank is an academic project developed for educational and demonstration purposes. It is not intended for actual banking operations or real financial transactions.
+> **Secure Bank is an academic project** built for learning and demonstration. It is **not** intended for real banking operations or real financial transactions.
 
 ---
 
-**SECURE BANK — Smarter Banking. Simpler Transactions.**
+<div align="center">
+
+**🏦 SECURE BANK**
+*Smarter banking. Simpler transactions.*
+
+⭐ If you found this project useful, consider giving it a star!
+
+</div>
